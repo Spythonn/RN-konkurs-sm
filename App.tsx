@@ -1,10 +1,12 @@
+// App.tsx
 import React, { useState, useEffect } from 'react';
-import { View, ActivityIndicator, Text, Image} from 'react-native';
+import { View, ActivityIndicator, Text, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import Tabs from './navigation/Tabs';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
+  const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -13,6 +15,9 @@ const App = () => {
 
     return () => clearTimeout(timer);
   }, []);
+
+  const addToFavorites = async (artwork) => {
+  };
 
   return (
     <NavigationContainer>
@@ -23,10 +28,14 @@ const App = () => {
             style={{ width: 200, height: 200, marginBottom: 20 }}
           />
           <ActivityIndicator size="large" color="#8C32FF" />
-          <Text style={{color:'#fff', fontSize: 20, fontFamily: "Poppins-Thin", textAlign:'center', top: 20, paddingLeft: 20, paddingRight: 20}}>Your Gateway to an Online Art Gallery Experience!</Text>
+          <Text style={{ color: '#fff', fontSize: 20, fontFamily: "Poppins-Thin", textAlign: 'center', top: 20, paddingLeft: 20, paddingRight: 20 }}>Your Gateway to an Online Art Gallery Experience!</Text>
         </View>
       ) : (
-        <Tabs />
+        <Tabs
+          favorites={favorites}
+          setFavorites={setFavorites}
+          addToFavorites={addToFavorites}
+        />
       )}
     </NavigationContainer>
   );

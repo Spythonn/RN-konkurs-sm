@@ -6,33 +6,35 @@ import SearchScreen from "../screens/SearchScreen";
 import FavouritesScreen from "../screens/FavouritesScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import AllScreen from '../screens/AllScreen';
+import ArtworkDetailScreen from '../screens/ArtworkDetailScreen';
+import ArtistDetailScreen from '../screens/ArtistDetailScreen';
 
 const Tab = createBottomTabNavigator();
 
-const Tabs = () => {
+const Tabs = ({ favorites, setFavorites, addToFavorites }) => {
     return(
         <Tab.Navigator
-            screenOptions={{
+            screenOptions={({ route }) => ({
                 tabBarShowLabel: false,
                 tabBarStyle: {
-                    position: 'absolute',  
+                    position: 'absolute',
                     elevation: 0,
                     backgroundColor: '#2E2A29',
                     height: 70,
                     ...style.border
                 },
-                headerStyle:{
+                headerStyle: {
                     backgroundColor: '#2E2A29',
                     borderBottomColor: '#748c94',
                     borderBottomWidth: 1,
-                    
                 },
                 headerTitleStyle: {
                     color: '#fff',
                     fontSize: 23,
-                    
-                }
-            }}
+                },
+                tabBarIcon: ({ focused }) => { },
+                headerTitleAlign: 'center',
+            })}
         >
             
             <Tab.Screen name="Home" component={HomeScreen}
@@ -107,6 +109,16 @@ const Tabs = () => {
                 ),
                 headerTitleAlign: 'center'
             }} />
+            <Tab.Screen name="ArtworkDetailScreen" component={ArtworkDetailScreen}
+                options={{
+                    tabBarButton: () => null, 
+                }}
+            />
+            <Tab.Screen name="ArtistDetailScreen" component={ArtistDetailScreen}
+                options={{
+                    tabBarButton: () => null, 
+                }}
+            />
             <Tab.Screen name="Settings" component={SettingsScreen} 
              options={{
                 tabBarIcon: ({focused}) => (
@@ -127,7 +139,8 @@ const Tabs = () => {
             }} />
         </Tab.Navigator>
     );
-}
+};
+
 
 const style = StyleSheet.create({
     border: {
